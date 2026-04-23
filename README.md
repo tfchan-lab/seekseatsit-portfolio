@@ -77,4 +77,7 @@ This downloads everything the project needs.
 Run: `npm run dev`
 
 Then open your browser and go to: http://localhost:3000
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
