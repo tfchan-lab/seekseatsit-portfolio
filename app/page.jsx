@@ -9,6 +9,9 @@ export default function App() {
     const [expanded1, setExpanded1] = useState(false);
 	const [expanded2, setExpanded2] = useState(false);
 	const [expanded3, setExpanded3] = useState(false);
+	const [expanded4, setExpanded4] = useState(false);
+	const [expanded5, setExpanded5] = useState(false);
+	const [expanded6, setExpanded6] = useState(false);
 
     return (
         <div className="bg-white text-gray-900 relative">
@@ -27,6 +30,7 @@ export default function App() {
                         max-w-[90vw]
                     "
                 >
+					<a href="#top" className="text-orange-500 font-bold">SeekSeatSit</a>
                     <a href="#overview" className="hover:text-black">Overview</a>
                     <a href="#process" className="hover:text-black">Process</a>
                     <a href="#about" className="hover:text-black">About</a>
@@ -41,7 +45,7 @@ export default function App() {
 
 
             {/* Hero */}
-            <section className="max-w-6xl mx-auto px-6 pt-40 pb-32 text-center">
+            <section className="max-w-6xl mx-auto px-6 pt-40 pb-32 text-center" id="top">
 
                 <p className="text-sm text-gray-500 mb-4">
                     <span className="text-orange-500 font-bold">SeekSeatSit</span> by <span className="text-black font-semibold">Group 13</span>
@@ -71,7 +75,7 @@ export default function App() {
 
 
 
-            {/* Feature Cards */}
+            {/* Overview Feature Cards */}
 			<section className="max-w-6xl mx-auto px-6 pb-32 grid md:grid-cols-3 gap-10" id="overview">
 
 				{/* Card 1 — triggers pop-up */}
@@ -158,7 +162,147 @@ export default function App() {
 
 			</section>
 
+			<section className="max-w-6xl mx-auto px-6 pb-32 grid md:grid-cols-3 gap-10" id="process">
+				{/* WIDE CARD — USER STUDY */}
+				<div
+					onClick={() => setExpanded4(true)}
+					className="
+						md:col-span-3 relative rounded-2xl overflow-hidden
+						h-[350px] md:h-[420px]
+						bg-cover cursor-pointer transition-all duration-300
+					"
+					style={{
+						backgroundImage: "url('/image/userstudy-map.png')",
+						backgroundPosition: "left 20% top 4%",
+					}}
+				>
+					{/* GRADIENT OVERLAY */}
+					<div
+						className="
+							absolute inset-0
+							/* Mobile: fade from bottom-left */
+							bg-gradient-to-tr from-white/90 via-white/40 to-transparent
+							/* Desktop: fade from top-left */
+							md:bg-gradient-to-br md:from-white/90 md:via-white/40 md:to-transparent
+						"
+					/>
 
+					{/* TEXT CONTENT */}
+					<div
+						className="
+							absolute
+							/* Mobile: bottom-left */
+							bottom-0 left-0 p-8
+							/* Desktop: top-left */
+							md:top-0 md:left-0 md:bottom-auto
+							max-w-md
+						"
+					>
+						<h3 className="text-xl font-semibold text-gray-900">
+							User Study
+						</h3>
+
+						<p className="text-gray-700 mt-3">
+							Contextual Inquiries are conducted to capture the details in seat searching processes,
+							to facilitate analysis using Affinity Diagram.
+						</p>
+					</div>
+				</div>
+				
+				{/* WIDE CARD — PROTOTYPING */}
+				<div
+					onClick={() => setExpanded5(true)}
+					className="
+						md:col-span-3 relative rounded-2xl overflow-hidden
+						h-[350px] md:h-[420px]
+						bg-cover cursor-pointer transition-all duration-300
+					"
+					style={{
+						backgroundImage: "url('image/userstudy-map.png')",
+						backgroundPosition: "left 20% top 4%",
+					}}
+				>
+					{/* GRADIENT OVERLAY */}
+					<div
+						className="
+							absolute inset-0
+							/* Mobile: fade from bottom-right */
+							bg-gradient-to-tl from-white/90 via-white/40 to-transparent
+							/* Desktop: fade from top-right */
+							md:bg-gradient-to-bl md:from-white/90 md:via-white/40 md:to-transparent
+						"
+					/>
+
+					{/* TEXT CONTENT */}
+					<div
+						className="
+							absolute text-right
+							/* Mobile: bottom-right */
+							bottom-0 right-0 p-8
+							/* Desktop: top-right */
+							md:top-0 md:right-0 md:bottom-auto
+							max-w-md
+						"
+					>
+						<h3 className="text-xl font-semibold text-gray-900">
+							Prototyping
+						</h3>
+
+						<p className="text-gray-700 mt-3">
+							Following a hierarchical and iterative way structure, to advance from low fidelity to high fidelity.
+						</p>
+					</div>
+				</div>
+				
+				{/* WIDE CARD — USER STUDY */}
+				<div
+					onClick={() => setExpanded6(true)}
+					className="
+						md:col-span-3 relative rounded-2xl overflow-hidden
+						h-[350px] md:h-[420px]
+						bg-cover cursor-pointer transition-all duration-300
+					"
+					style={{
+						backgroundImage: "url('/image/userstudy-map.png')",
+						backgroundPosition: "left 20% top 4%",
+					}}
+				>
+					{/* GRADIENT OVERLAY */}
+					<div
+						className="
+							absolute inset-0
+							/* Mobile: fade from bottom-left */
+							bg-gradient-to-tr from-white/90 via-white/40 to-transparent
+							/* Desktop: fade from top-left */
+							md:bg-gradient-to-br md:from-white/90 md:via-white/40 md:to-transparent
+						"
+					/>
+
+					{/* TEXT CONTENT */}
+					<div
+						className="
+							absolute
+							/* Mobile: bottom-left */
+							bottom-0 left-0 p-8
+							/* Desktop: top-left */
+							md:top-0 md:left-0 md:bottom-auto
+							max-w-md
+						"
+					>
+						<h3 className="text-xl font-semibold text-gray-900">
+							Evaluation
+						</h3>
+
+						<p className="text-gray-700 mt-3">
+							Blah blah blah blah blah blah
+							Blah blah blah blah blah blah
+							Blah blah blah blah blah blah
+							Blah blah blah blah blah blah
+						</p>
+					</div>
+				</div>
+
+			</section>
 
             {/* POP-UP EXPANDED CARD 1 */}
             {expanded1 && (
@@ -243,10 +387,10 @@ export default function App() {
                                 </h4><br />
 
                                 <ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
-                                    <li>Difficulty navigating complex street intersections and indoor layouts</li><br />
-                                    <li>Unclear seat availability in malls and public areas</li><br />
-                                    <li>No real‑time updates for crowded or busy zones</li><br />
-                                    <li>Weather or environment factors may make location unpleasant</li>
+                                    <li>Difficulty navigating <span className="text-black font-semibold">complex</span> street intersections and indoor layouts</li><br />
+                                    <li><span className="text-black font-semibold">Unclear</span> seat availability in malls and public areas</li><br />
+                                    <li>No <span className="text-black font-semibold">real‑time</span> updates for crowded or busy zones</li><br />
+                                    <li>Weather or environment factors may make location <span className="text-black font-semibold">unpleasant</span></li>
                                 </ul>
                             </div>
 
@@ -381,7 +525,7 @@ export default function App() {
 										guiding them to <span className="text-black font-semibold">explore</span> more about the usefulness.
 									</li>
 									<li>
-										If we hide the button in <span className="text-black font-semibold">deep</span> layers of setting menus instead,
+										If the button in <span className="text-black font-semibold">deep</span> layers of setting menus is hidden instead,
 										it strips off their opportunity to realize what they don&apos;t know,
 										which is just another way of <span className="text-black font-semibold">punishing</span> users with little knowledge.
 									</li>
@@ -483,7 +627,7 @@ export default function App() {
 									&nbsp;vehicles/personnels, which is <span className="text-black font-semibold">costly</span>.
 									Allowing the community to <span className="text-black font-semibold">contribute</span> their own data makes the platform more scalable without scraping data from the internet.<br /><br />
 									Ratings and reviews are good <span className="text-black font-semibold">references</span> to help users compare and choose the best seats around.
-									In the actual implementation, we may add geolocation check or require users to take a photo,
+									In the actual implementation, geolocation or phototaking check may be added,
 									as to <span className="text-black font-semibold">verify</span> that they actually visited the place, ensuring credible reviews.
 								</p>
 							</div>
@@ -518,8 +662,8 @@ export default function App() {
 								</h4>
 								
 								<p className="text-sm leading-relaxed text-gray-700">
-									We need to identify the possible composition of our community before conducting user studies,
-									in order to <span className="text-black font-semibold">narrow down</span> and reduce the time cost in doing contextual inquiry.
+									The composition of the community needs to be identified before conducting user studies,
+									in order to <span className="text-black font-semibold">narrow down</span> and reduce the time cost.
 								</p><br />
 
 								<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
@@ -575,6 +719,212 @@ export default function App() {
 
 						</div>
 
+					</div>
+				</div>
+			)}
+			
+			{/* POP-UP EXPANDED CARD 4 */}
+			{expanded4 && (
+				<div
+					onClick={() => setExpanded4(false)}
+					className="
+						fixed inset-0 z-50 flex items-center justify-center
+						bg-black/20 backdrop-blur-sm
+					"
+				>
+					<div
+						onClick={(e) => e.stopPropagation()}
+						className="
+							bg-gray-50 relative rounded-2xl border border-gray-200
+							shadow-[0_2px_20px_rgba(0,0,0,0.15)]
+							w-[90%] md:w-[80%] h-[90vh]
+							overflow-y-auto
+						"
+					>
+
+						{/* CONTENT (above gradient) */}
+						<div className="relative z-10 p-8">
+
+							{/* Title */}
+							<h2 className="text-3xl font-semibold mb-6">
+								User Study
+							</h2>
+
+							{/* BRIEF */}
+							<p className="text-gray-700 mb-10">
+								Contextual Inquiries are conducted to capture the details in seat searching processes,
+								to facilitate analysis using Affinity Diagram.
+							</p>
+
+							{/* ===== SECTION 1 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-16 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Contextual Interview
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										We invited ≥1 interviewee per identified primary user group,
+										as well as extra interviewees for some secondary user groups.
+									</p><br />
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li>
+									</ul>
+								</div>
+
+								{/* VIDEO */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200">
+										<video
+											src="video/upload-rating.mp4"
+											autoPlay
+											muted
+											loop
+											playsInline
+											className="w-full h-full object-cover"
+										/>
+									</div>
+								</div>
+							</div>
+
+							{/* ===== SECTION 2 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Data Analysis
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										We created memos of six stages to form an Affinity Diagram,
+										which would be clustered and translated into design solutions.
+									</p><br />
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li>
+									</ul>
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
+									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
+										<Image
+											src="/image/userstudy-slide.jpg"
+											alt="Features powerpoint"
+											width={1200}
+											height={800}
+											className="w-full h-full object-cover"
+										/>
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 3 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Functional Requirements
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										...
+									</p><br />
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li>
+									</ul>
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
+									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
+										<Image
+											src="/image/userstudy-slide.jpg"
+											alt="Features powerpoint"
+											width={1200}
+											height={800}
+											className="w-full h-full object-cover"
+										/>
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 3 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Key Tasks Design
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										...
+									</p><br />
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li><br />
+										<li>
+											blah
+										</li>
+									</ul>
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
+									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
+										<Image
+											src="/image/userstudy-slide.jpg"
+											alt="Features powerpoint"
+											width={1200}
+											height={800}
+											className="w-full h-full object-cover"
+										/>
+									</div>
+								</div>
+							</div>
+
+						</div>
 					</div>
 				</div>
 			)}
