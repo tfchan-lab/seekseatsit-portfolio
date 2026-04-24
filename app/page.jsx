@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 
 export default function App() {
@@ -12,7 +12,51 @@ export default function App() {
 	const [expanded4, setExpanded4] = useState(false);
 	const [expanded5, setExpanded5] = useState(false);
 	const [expanded6, setExpanded6] = useState(false);
+	
+	// Controls carousel for desktop drag and page indicator
+	const carouselRef = useRef(null);
+	const [index, setIndex] = useState(0);
 
+	const drag = useRef({
+		isDown: false,
+		startX: 0,
+		startScrollLeft: 0,
+	});
+
+	const handleScroll = (e) => {
+		const el = e.currentTarget;
+		const slideWidth = el.clientWidth;
+		const newIndex = Math.round(el.scrollLeft / slideWidth);
+		setIndex(Math.max(0, Math.min(2, newIndex)));
+	};
+
+	const handlePointerDown = (e) => {
+		const el = carouselRef.current;
+		if (!el) return;
+
+		drag.current.isDown = true;
+		drag.current.startX = e.clientX;
+		drag.current.startScrollLeft = el.scrollLeft;
+
+		el.setPointerCapture(e.pointerId);
+	};
+
+	const handlePointerMove = (e) => {
+		const el = carouselRef.current;
+		if (!el || !drag.current.isDown) return;
+
+		const dx = e.clientX - drag.current.startX;
+		el.scrollLeft = drag.current.startScrollLeft - dx;
+	};
+
+	const handlePointerUp = (e) => {
+		const el = carouselRef.current;
+		if (!el) return;
+
+		drag.current.isDown = false;
+		el.releasePointerCapture(e.pointerId);
+	};
+	
     return (
         <div className="bg-white text-gray-900 relative">
 
@@ -318,7 +362,7 @@ export default function App() {
                         className="
                             bg-gray-50 rounded-2xl border border-gray-200
                             shadow-[0_2px_20px_rgba(0,0,0,0.15)]
-                            p-8 w-[90%] md:w-[80%] h-[90vh]
+                            p-8 w-[90%] md:w-[80%] h-[80vh] md:h-[90vh]
                             overflow-y-auto
                         "
                     >
@@ -427,7 +471,7 @@ export default function App() {
 						className="
 							bg-gray-50 rounded-2xl border border-gray-200
 							shadow-[0_2px_20px_rgba(0,0,0,0.15)]
-							p-8 w-[90%] md:w-[80%] h-[90vh]
+							p-8 w-[90%] md:w-[80%] h-[80vh] md:h-[90vh]
 							overflow-y-auto
 						"
 					>
@@ -587,7 +631,7 @@ export default function App() {
 						className="
 							bg-gray-50 rounded-2xl border border-gray-200
 							shadow-[0_2px_20px_rgba(0,0,0,0.15)]
-							p-8 w-[90%] md:w-[80%] h-[90vh]
+							p-8 w-[90%] md:w-[80%] h-[80vh] md:h-[90vh]
 							overflow-y-auto
 						"
 					>
@@ -737,7 +781,7 @@ export default function App() {
 						className="
 							bg-gray-50 relative rounded-2xl border border-gray-200
 							shadow-[0_2px_20px_rgba(0,0,0,0.15)]
-							w-[90%] md:w-[80%] h-[90vh]
+							w-[90%] md:w-[80%] h-[80vh] md:h-[90vh]
 							overflow-y-auto
 						"
 					>
@@ -765,35 +809,82 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We invited ≥1 interviewee per identified primary user group,
-										as well as extra interviewees for some secondary user groups.
+										We invited ≥1 interviewee per identified <span className="text-black font-semibold">primary</span> user group,
+										as well as extra interviewees for <span className="text-black font-semibold">some secondary</span> user groups.
 									</p><br />
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											blah
+											Primary user groups: Elderly, Student, Young adult employee.
 										</li><br />
 										<li>
-											blah
+											Interviewed locations: Market, Park, Street, Mall, Train station<br />
+											(Took place in New Territories <span className="text-black font-semibold">residential</span> areas
+											and Kowloon <span className="text-black font-semibold">commercial</span> areas)
 										</li><br />
 										<li>
-											blah
+											Reason of choosing interview as the inquiry method is that it is the <span className="text-black font-semibold">more natural</span>
+											&nbsp;than other methods (e.g. Master-Apprentice, Shadowing, Observation).
 										</li>
 									</ul>
 								</div>
 
-								{/* VIDEO */}
-								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
-									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200">
-										<video
-											src="video/upload-rating.mp4"
-											autoPlay
-											muted
-											loop
-											playsInline
-											className="w-full h-full object-cover"
-										/>
+								{/* CAROUSEL (scroll-snap + JS index tracking) */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										<div
+											ref={carouselRef}
+											onScroll={handleScroll}
+											onPointerDown={handlePointerDown}
+											onPointerMove={handlePointerMove}
+											onPointerUp={handlePointerUp}
+											onPointerLeave={handlePointerUp}
+											className="
+												flex overflow-x-scroll snap-x snap-mandatory scroll-smooth
+												cursor-grab active:cursor-grabbing
+												scrollbar-none select-none
+											"
+										>
+											{/* Slide 1 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/persona-1.jpg"
+													alt="Persona 1"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 2 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/persona-2.jpg"
+													alt="Persona 2"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 3 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/persona-3.jpg"
+													alt="Persona 3"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+										</div>
 									</div>
+
+									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+										<span>&lt;- Swipe to see personas</span>
+										<span className="text-gray-800">({index + 1}/3) -&gt;</span>
+									</p>
+
 								</div>
 							</div>
 
@@ -806,19 +897,20 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We created memos of six stages to form an Affinity Diagram,
-										which would be clustered and translated into design solutions.
+										We created memos of six categories to form an Affinity Diagram,
+										which would be <span className="text-black font-semibold">clustered</span> and translated into design <span className="text-black font-semibold">solutions</span>.
+										<br /><span className="text-xs">(Key Observations (KO), User Statements (US), Breakdowns (BD), Insights (IS), Design Ideas (DI), Questions & Ambiguities (QA))</span>
 									</p><br />
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											blah
+											Cluster 1:
 										</li><br />
 										<li>
-											blah
+											Cluster 2:
 										</li><br />
 										<li>
-											blah
+											Cluster 3:
 										</li>
 									</ul>
 								</div>
@@ -827,8 +919,8 @@ export default function App() {
 								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
 									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
 										<Image
-											src="/image/userstudy-slide.jpg"
-											alt="Features powerpoint"
+											src="/image/placeholder.jpg"
+											alt="Features slider of different affinity clusters"
 											width={1200}
 											height={800}
 											className="w-full h-full object-cover"
@@ -846,27 +938,24 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										...
+										Features we specified after the analysis of interview user data.
 									</p><br />
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											blah
+											Sort by cost/distance: to be implemented to the nearby search.
 										</li><br />
 										<li>
-											blah
+											Label slope/stairs: to be implemented to the navigation.
 										</li><br />
 										<li>
-											blah
+											Label number of seats: to be implemented to the seat spots on the map.
 										</li><br />
 										<li>
-											blah
+											Information card: to be implemented to each seat spot.
 										</li><br />
 										<li>
-											blah
-										</li><br />
-										<li>
-											blah
+											Live busyness trend: to be implemented to seat spot icon (possibly via heatmap color)
 										</li>
 									</ul>
 								</div>
@@ -875,7 +964,7 @@ export default function App() {
 								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
 									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
 										<Image
-											src="/image/userstudy-slide.jpg"
+											src="/image/requirement-slide.jpg"
 											alt="Features powerpoint"
 											width={1200}
 											height={800}
@@ -890,7 +979,7 @@ export default function App() {
 								{/* TEXT */}
 								<div className="md:w-1/2">
 									<h4 className="font-semibold text-gray-900 text-lg mb-2">
-										Key Tasks Design
+										Key Tasks
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
