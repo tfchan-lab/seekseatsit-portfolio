@@ -14,24 +14,35 @@ export default function App() {
 	const [expanded6, setExpanded6] = useState(false);
 	
 	// Controls carousel for desktop drag and page indicator
-	const carouselRef = useRef(null);
-	const [index, setIndex] = useState(0);
+	const personaRef = useRef(null);
+	const [personaIndex, setPersonaIndex] = useState(0);
 
-	const drag = useRef({
+	const personaDrag = useRef({
+		isDown: false,
+		startX: 0,
+		startScrollLeft: 0,
+	});
+	
+	const affinityRef = useRef(null);
+	const [affinityIndex, setAffinityIndex] = useState(0);
+
+	const affinityDrag = useRef({
 		isDown: false,
 		startX: 0,
 		startScrollLeft: 0,
 	});
 
-	const handleScroll = (e) => {
+	// SHARED HANDLERS FOR ALL CAROUSELS
+	const handleScroll = (e, setIndex) => {
 		const el = e.currentTarget;
 		const slideWidth = el.clientWidth;
-		const newIndex = Math.round(el.scrollLeft / slideWidth);
+		const rawIndex = slideWidth ? el.scrollLeft / slideWidth : 0;
+		const newIndex = Math.round(rawIndex);
 		setIndex(Math.max(0, Math.min(2, newIndex)));
 	};
 
-	const handlePointerDown = (e) => {
-		const el = carouselRef.current;
+	const handlePointerDown = (e, ref, drag) => {
+		const el = ref.current;
 		if (!el) return;
 
 		drag.current.isDown = true;
@@ -41,16 +52,16 @@ export default function App() {
 		el.setPointerCapture(e.pointerId);
 	};
 
-	const handlePointerMove = (e) => {
-		const el = carouselRef.current;
+	const handlePointerMove = (e, ref, drag) => {
+		const el = ref.current;
 		if (!el || !drag.current.isDown) return;
 
 		const dx = e.clientX - drag.current.startX;
 		el.scrollLeft = drag.current.startScrollLeft - dx;
 	};
 
-	const handlePointerUp = (e) => {
-		const el = carouselRef.current;
+	const handlePointerUp = (e, ref, drag) => {
+		const el = ref.current;
 		if (!el) return;
 
 		drag.current.isDown = false;
@@ -833,16 +844,16 @@ export default function App() {
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
 										<div
-											ref={carouselRef}
-											onScroll={handleScroll}
-											onPointerDown={handlePointerDown}
-											onPointerMove={handlePointerMove}
-											onPointerUp={handlePointerUp}
-											onPointerLeave={handlePointerUp}
+											ref={personaRef}
+											onScroll={(e) => handleScroll(e, setPersonaIndex)}
+											onPointerDown={(e) => handlePointerDown(e, personaRef, personaDrag)}
+											onPointerMove={(e) => handlePointerMove(e, personaRef, personaDrag)}
+											onPointerUp={(e) => handlePointerUp(e, personaRef, personaDrag)}
+											onPointerLeave={(e) => handlePointerUp(e, personaRef, personaDrag)}
 											className="
 												flex overflow-x-scroll snap-x snap-mandatory scroll-smooth
 												cursor-grab active:cursor-grabbing
-												scrollbar-none select-none
+												scrollbar-none select-none no-scrollbar
 											"
 										>
 											{/* Slide 1 */}
@@ -882,7 +893,7 @@ export default function App() {
 
 									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
 										<span>&lt;- Swipe to see personas</span>
-										<span className="text-gray-800">({index + 1}/3) -&gt;</span>
+										<span className="text-gray-800">({personaIndex + 1}/3) -&gt;</span>
 									</p>
 
 								</div>
@@ -904,28 +915,73 @@ export default function App() {
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											Cluster 1:
+											Cluster 1: Main factors are money and time costs
 										</li><br />
 										<li>
-											Cluster 2:
+											Cluster 2: Social and psychological barries eixst
 										</li><br />
 										<li>
-											Cluster 3:
+											Cluster 3: Existing infrastructure and apps lack sufficient information
 										</li>
 									</ul>
 								</div>
 
-								{/* IMAGE */}
-								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
-									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
-										<Image
-											src="/image/placeholder.jpg"
-											alt="Features slider of different affinity clusters"
-											width={1200}
-											height={800}
-											className="w-full h-full object-cover"
-										/>
+								{/* CAROUSEL (scroll-snap + JS index tracking) */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										<div
+											ref={affinityRef}
+											onScroll={(e) => handleScroll(e, setAffinityIndex)}
+											onPointerDown={(e) => handlePointerDown(e, affinityRef, affinityDrag)}
+											onPointerMove={(e) => handlePointerMove(e, affinityRef, affinityDrag)}
+											onPointerUp={(e) => handlePointerUp(e, affinityRef, affinityDrag)}
+											onPointerLeave={(e) => handlePointerUp(e, affinityRef, affinityDrag)}
+											className="
+												flex overflow-x-scroll snap-x snap-mandatory scroll-smooth
+												cursor-grab active:cursor-grabbing
+												scrollbar-none select-none no-scrollbar
+											"
+										>
+											{/* Slide 1 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/affinity-1.png"
+													alt="Affinity Cluster 1"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 2 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/affinity-2.png"
+													alt="Affinity Cluster 2"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 3 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/affinity-3.png"
+													alt="Affinity Cluster 3"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+										</div>
 									</div>
+
+									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+										<span>&lt;- Swipe to see affinity clusters</span>
+										<span className="text-gray-800">({affinityIndex + 1}/3) -&gt;</span>
+									</p>
+
 								</div>
 							</div>
 							
