@@ -11,7 +11,7 @@ export default function App() {
 	const [expanded3, setExpanded3] = useState(false);
 	const [expanded4, setExpanded4] = useState(false);
 	const [expanded5, setExpanded5] = useState(false);
-	const [expanded6, setExpanded6] = useState(false);
+	//const [expanded6, setExpanded6] = useState(false);
 	
 	// Controls carousel for desktop drag and page indicator
 	const personaRef = useRef(null);
@@ -915,13 +915,13 @@ export default function App() {
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											Cluster 1: Main factors are money and time costs
+											Cluster 1: Main factors are money and time <span className="text-black font-semibold">costs</span>
 										</li><br />
 										<li>
-											Cluster 2: Social and psychological barries eixst
+											Cluster 2: Social and psychological <span className="text-black font-semibold">barriers</span> exist
 										</li><br />
 										<li>
-											Cluster 3: Existing infrastructure and apps lack sufficient information
+											Cluster 3: Existing infrastructure and apps <span className="text-black font-semibold">lack sufficient</span> information
 										</li>
 									</ul>
 								</div>
@@ -999,19 +999,19 @@ export default function App() {
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											Sort by cost/distance: to be implemented to the nearby search.
+											Sort by cost/distance: to be implemented to the <span className="text-black font-semibold">nearby search</span>.
 										</li><br />
 										<li>
-											Label slope/stairs: to be implemented to the navigation.
+											Label slope/stairs: to be implemented to the <span className="text-black font-semibold">navigation</span>.
 										</li><br />
 										<li>
-											Label number of seats: to be implemented to the seat spots on the map.
+											Label number of seats: to be implemented to the <span className="text-black font-semibold">seat spots</span> on the map.
 										</li><br />
 										<li>
-											Information card: to be implemented to each seat spot.
+											Information card: to be implemented to seat spot <span className="text-black font-semibold">click event</span>.
 										</li><br />
 										<li>
-											Live busyness trend: to be implemented to seat spot icon (possibly via heatmap color)
+											Live busyness trend: to be implemented to seat spot <span className="text-black font-semibold">icon</span> (possibly via <span className="text-black font-semibold">heatmap colors</span>)
 										</li>
 									</ul>
 								</div>
@@ -1039,18 +1039,19 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										...
+										The most important features that would make the app useful. These key tasks would be useful in <span className="text-black font-semibold">evaluating</span> UI/UX effectiveness.
 									</p><br />
 									
 									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
 										<li>
-											blah
+											Main task: Locate and view nearby seats through <span className="text-black font-semibold">real-time positioning</span>.
 										</li><br />
 										<li>
-											blah
+											Secondary task: <span className="text-black font-semibold">Read and compare</span> information of seat (e.g. real-time seat availability, environment).
 										</li><br />
 										<li>
-											blah
+											Community task: View or share <span className="text-black font-semibold">feedback</span> on seats by ratings/reviews, 
+											which contribute to the ranking of seats in categories like popularity and cleanliness.
 										</li>
 									</ul>
 								</div>
@@ -1059,8 +1060,8 @@ export default function App() {
 								<div className="md:w-1/2 mt-6 md:mt-0 flex items-start">
 									<div className="w-full rounded-xl overflow-hidden bg-gray-200">
 										<Image
-											src="/image/userstudy-slide.jpg"
-											alt="Features powerpoint"
+											src="/image/usertask.png"
+											alt="Photo of user using phone"
 											width={1200}
 											height={800}
 											className="w-full h-full object-cover"
@@ -1074,6 +1075,145 @@ export default function App() {
 				</div>
 			)}
 			
+			{/* POP-UP EXPANDED CARD 5 */}
+			{expanded5 && (
+				<div
+					onClick={() => setExpanded5(false)}
+					className="
+						fixed inset-0 z-50 flex items-center justify-center
+						bg-black/20 backdrop-blur-sm
+					"
+				>
+					<div
+						onClick={(e) => e.stopPropagation()}
+						className="
+							bg-gray-50 relative rounded-2xl border border-gray-200
+							shadow-[0_2px_20px_rgba(0,0,0,0.15)]
+							w-[90%] md:w-[80%] h-[80vh] md:h-[90vh]
+							overflow-y-auto
+						"
+					>
+
+						{/* CONTENT (above gradient) */}
+						<div className="relative z-10 p-8">
+
+							{/* Title */}
+							<h2 className="text-3xl font-semibold mb-6">
+								Prototyping
+							</h2>
+
+							{/* BRIEF */}
+							<p className="text-gray-700 mb-10">
+								Following a hierarchical and iterative way structure, to advance from low fidelity to high fidelity.
+							</p>
+
+							{/* ===== SECTION 1 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-16 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Storyboard
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										We used storyboard to visualize the interaction of personas with a navigation app, as well as aligning the team&apos;s vision.
+									</p><br />
+									
+									
+								</div>
+
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+
+									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+									</p>
+
+								</div>
+							</div>
+
+							{/* ===== SECTION 2 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Hand-drawn Sketch
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										From several rounds of Crazy 8s, we gathered a lot of UI elements, that could be put into wireframe screens to form a flow.
+									</p><br />
+									
+									
+								</div>
+								
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+
+									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+									</p>
+
+								</div>
+							</div>
+							
+							{/* ===== SECTION 3 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Low Fidelity Wireframe
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										We transfer our paper drafts into Balsamiq wireframes, as the text would be more clear and allows us to use basic colors.
+									</p><br />
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+
+									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+									</p>
+
+								</div>
+							</div>
+							
+							{/* ===== SECTION 3 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										High Fidelity Prototype
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										We move on to make interactive prototypes by refining and merging the layouts of our previous low fidelity ideas.
+									</p><br />
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+
+									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+									</p>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			)}
 
             {/* Footer */}
             <footer className="border-t py-8 text-center text-sm text-gray-500">
