@@ -11,7 +11,7 @@ export default function App() {
 	const [expanded3, setExpanded3] = useState(false);
 	const [expanded4, setExpanded4] = useState(false);
 	const [expanded5, setExpanded5] = useState(false);
-	//const [expanded6, setExpanded6] = useState(false);
+	const [expanded6, setExpanded6] = useState(false);
 	
 	// Controls carousel for desktop drag and page indicator
 	const personaRef = useRef(null);
@@ -27,6 +27,15 @@ export default function App() {
 	const [affinityIndex, setAffinityIndex] = useState(0);
 
 	const affinityDrag = useRef({
+		isDown: false,
+		startX: 0,
+		startScrollLeft: 0,
+	});
+	
+	const storyboardRef = useRef(null);
+	const [storyboardIndex, setstoryboardIndex] = useState(0);
+
+	const storyboardDrag = useRef({
 		isDown: false,
 		startX: 0,
 		startScrollLeft: 0,
@@ -273,8 +282,8 @@ export default function App() {
 						bg-cover cursor-pointer transition-all duration-300
 					"
 					style={{
-						backgroundImage: "url('image/userstudy-map.png')",
-						backgroundPosition: "left 20% top 4%",
+						backgroundImage: "url('image/figma.png')",
+						backgroundPosition: "left 20% top 20%",
 					}}
 				>
 					{/* GRADIENT OVERLAY */}
@@ -309,7 +318,7 @@ export default function App() {
 					</div>
 				</div>
 				
-				{/* WIDE CARD — USER STUDY */}
+				{/* WIDE CARD — EVALUATION */}
 				<div
 					onClick={() => setExpanded6(true)}
 					className="
@@ -318,8 +327,8 @@ export default function App() {
 						bg-cover cursor-pointer transition-all duration-300
 					"
 					style={{
-						backgroundImage: "url('/image/userstudy-map.png')",
-						backgroundPosition: "left 20% top 4%",
+						backgroundImage: "url('/image/evaluation-cover.png')",
+						backgroundPosition: "left 15% top 0%",
 					}}
 				>
 					{/* GRADIENT OVERLAY */}
@@ -1116,18 +1125,67 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We used storyboard to visualize the interaction of personas with a navigation app, as well as aligning the team&apos;s vision.
+										We used storyboard to <span className="text-black font-semibold">visualize</span> the interaction of personas with a navigation app,
+										as well as <span className="text-black font-semibold">aligning</span> the team&apos;s vision.
 									</p><br />
 									
 									
 								</div>
 
+								{/* CAROUSEL (scroll-snap + JS index tracking) */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										<div
+											ref={storyboardRef}
+											onScroll={(e) => handleScroll(e, setstoryboardIndex)}
+											onPointerDown={(e) => handlePointerDown(e, storyboardRef, storyboardDrag)}
+											onPointerMove={(e) => handlePointerMove(e, storyboardRef, storyboardDrag)}
+											onPointerUp={(e) => handlePointerUp(e, storyboardRef, storyboardDrag)}
+											onPointerLeave={(e) => handlePointerUp(e, storyboardRef, storyboardDrag)}
+											className="
+												flex overflow-x-scroll snap-x snap-mandatory scroll-smooth
+												cursor-grab active:cursor-grabbing
+												scrollbar-none select-none no-scrollbar
+											"
+										>
+											{/* Slide 1 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/storyboard-1.png"
+													alt="Storyboard for task 1"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 2 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/storyboard-2.png"
+													alt="Storyboard for task 2"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 3 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/storyboard-3.png"
+													alt="Storyboard for task 3"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+										</div>
 									</div>
 
 									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+										<span>&lt;- Swipe to see storyboards</span>
+										<span className="text-gray-800">({storyboardIndex + 1}/3) -&gt;</span>
 									</p>
 
 								</div>
@@ -1142,7 +1200,7 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										From several rounds of Crazy 8s, we gathered a lot of UI elements, that could be put into wireframe screens to form a flow.
+										From several rounds of Crazy 8s, we gathered a lot of UI elements, that would be later put into wireframe screens to form a flow.
 									</p><br />
 									
 									
@@ -1169,7 +1227,7 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We transfer our paper drafts into Balsamiq wireframes, as the text would be more clear and allows us to use basic colors.
+										We transferred our paper drafts into Balsamiq wireframes, which cleaned up the rough sketches for more clarity and colors.
 									</p><br />
 								</div>
 
@@ -1214,6 +1272,67 @@ export default function App() {
 					</div>
 				</div>
 			)}
+			
+			<section id="about" className="w-full bg-white py-16 px-6 md:px-12 rounded-xl">
+				<div className="max-w-4xl mx-auto space-y-12">
+
+					{/* Team & Roles */}
+					<div className="space-y-4">
+						<h2 className="text-2xl font-semibold text-gray-900 text-center">Team & Roles</h2>
+						<div className="bg-gray-100 p-6 rounded-xl space-y-3">
+							<div className="flex justify-between">
+								<span className="text-gray-700">Member 1</span>
+								<span className="text-gray-500">UX Research · Interaction Design</span>
+							</div>
+							<div className="flex justify-between">
+								<span className="text-gray-700">Member 2</span>
+								<span className="text-gray-500">UI Design · Visuals</span>
+							</div>
+							<div className="flex justify-between">
+								<span className="text-gray-700">Member 3</span>
+								<span className="text-gray-500">Research Support</span>
+							</div>
+							<div className="flex justify-between">
+								<span className="text-gray-700">Member 4</span>
+								<span className="text-gray-500">UX Research · Interaction Design</span>
+							</div>
+							<div className="flex justify-between">
+								<span className="text-gray-700">Member 5</span>
+								<span className="text-gray-500">UI Design · Visuals</span>
+							</div>
+						</div>
+					</div>
+
+					{/* Tools & Tech Stack */}
+					<div className="space-y-4">
+						<h2 className="text-2xl font-semibold text-gray-900 text-center">Tools & Tech Stack</h2>
+						<div className="bg-gray-100 p-6 rounded-xl space-y-2">
+							<p className="text-gray-700"><strong>Prototype:</strong> Balsamiq · Figma</p>
+							<p className="text-gray-700"><strong>Portfolio:</strong> Next.js · React · Tailwind CSS</p>
+							<p className="text-gray-700"><strong>Design Assets:</strong> Irasutoya いらすとや</p>
+						</div>
+					</div>
+
+					{/* Demo Links */}
+					<div className="space-y-4">
+						<h2 className="text-2xl font-semibold text-gray-900 text-center">Prototype & Build</h2>
+						<div className="bg-gray-100 p-6 rounded-xl space-y-3">
+							<a href="#" className="text-blue-600 hover:underline">Figma Prototype</a><br />
+							<a href="#" className="text-blue-600 hover:underline">GitHub Repository</a>
+						</div>
+					</div>
+
+					{/* Acknowledgements */}
+					<div className="space-y-4">
+						<h2 className="text-2xl font-semibold text-gray-900 text-center">Acknowledgements</h2>
+						<div className="bg-gray-100 p-6 rounded-xl space-y-2">
+							<p className="text-gray-700">We thank all interview participants for their time and insights.</p>
+							<p className="text-gray-700">Special thanks to the teaching team for guidance throughout the project.</p>
+						</div>
+					</div>
+
+				</div>
+			</section>
 
             {/* Footer */}
             <footer className="border-t py-8 text-center text-sm text-gray-500">
