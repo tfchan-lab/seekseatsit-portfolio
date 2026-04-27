@@ -147,3 +147,12 @@
 .no-scrollbar {
   -ms-overflow-style: none;
 }
+
+@keyframes tapDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+.tap-down {
+    animation: tapDown 1.2s ease-in-out infinite;
+}

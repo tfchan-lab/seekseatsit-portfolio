@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { FigmaIcon, GithubIcon, DemoIcon } from "./SVGRepo"
 
 export default function App() {
 
@@ -60,12 +61,13 @@ export default function App() {
 	});
 
 	// SHARED HANDLERS FOR ALL CAROUSELS
-	const handleScroll = (e, setIndex) => {
+	const handleScroll = (e, setIndex, maxSlides) => {
 		const el = e.currentTarget;
 		const slideWidth = el.clientWidth;
 		const rawIndex = slideWidth ? el.scrollLeft / slideWidth : 0;
 		const newIndex = Math.round(rawIndex);
-		setIndex(Math.max(0, Math.min(2, newIndex)));
+
+		setIndex(Math.max(0, Math.min(maxSlides - 1, newIndex)));
 	};
 
 	const handlePointerDown = (e, ref, drag) => {
@@ -95,31 +97,120 @@ export default function App() {
 		el.releasePointerCapture(e.pointerId);
 	};
 	
+	const [active, setActive] = useState("overview");
+
+	useEffect(() => {
+		const sections = ["overview", "process", "about"];
+
+		const handleNavScroll = () => {
+			let current = "overview"; // default
+
+			for (const id of sections) {
+				const el = document.getElementById(id);
+				if (!el) continue;
+
+				const rect = el.getBoundingClientRect();
+				if (rect.top <= 120 && rect.bottom >= 120) {
+					current = id;
+				}
+			}
+
+			setActive(current);
+		};
+
+		window.addEventListener("scroll", handleNavScroll);
+		handleNavScroll();
+
+		return () => window.removeEventListener("scroll", handleNavScroll);
+	}, []);
+	
+	const navRef = useRef(null);
+	const overviewRef = useRef(null);
+	const processRef = useRef(null);
+	const aboutRef = useRef(null);
+
+	const [indicatorStyle, setIndicatorStyle] = useState({
+		left: 0,
+		width: 0,
+	});
+	
+	useEffect(() => {
+		let el = null;
+
+		if (active === "overview") el = overviewRef.current;
+		if (active === "process") el = processRef.current;
+		if (active === "about") el = aboutRef.current;
+
+		if (!el || !navRef.current) return;
+
+		const navRect = navRef.current.getBoundingClientRect();
+		const linkRect = el.getBoundingClientRect();
+
+		setIndicatorStyle({
+			left: linkRect.left - navRect.left + linkRect.width / 2,
+			width: 6,
+		});
+	}, [active]);
+
+	
     return (
         <div className="bg-white text-gray-900 relative">
 
             {/* Floating Oval Navbar — Glaze Style */}
-            <header
-                className="
-                    fixed top-4 left-1/2 -translate-x-1/2 z-50
-                "
-            >
-                <nav
-                    className="
-                        px-8 py-3 bg-white/80 backdrop-blur-md border shadow-sm rounded-full
-                        flex gap-6 text-sm
-                        overflow-x-auto whitespace-nowrap
-                        max-w-[90vw]
-                    "
-                >
-					<a href="#top" className="text-orange-500 font-bold">SeekSeatSit</a>
-                    <a href="#overview" className="hover:text-black">Overview</a>
-                    <a href="#process" className="hover:text-black">Process</a>
-                    <a href="#about" className="hover:text-black">About</a>
-                </nav>
-            </header>
+            <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+				<nav
+					ref={navRef}
+					className="
+						relative
+						px-8 py-3 bg-white/80 backdrop-blur-md border shadow-sm rounded-full
+						flex gap-6 text-sm
+						overflow-x-auto whitespace-nowrap
+						max-w-[90vw]
+					"
+				>
+					{/* Sliding indicator */}
+					<span
+						className="
+							absolute bottom-1 h-1.5 w-1.5 bg-black rounded-full
+							transition-all duration-300 ease-out
+						"
+						style={{
+							left: indicatorStyle.left,
+							width: indicatorStyle.width,
+							transform: "translateX(-50%)",
+						}}
+					/>
 
+					{/* No indicator for this */}
+					<a href="#top" className="text-orange-500 font-bold">
+						SeekSeatSit
+					</a>
 
+					<a
+						ref={overviewRef}
+						href="#overview"
+						className={`${active === "overview" ? "text-black font-semibold" : "text-gray-700"}`}
+					>
+						Overview
+					</a>
+
+					<a
+						ref={processRef}
+						href="#process"
+						className={`${active === "process" ? "text-black font-semibold" : "text-gray-700"}`}
+					>
+						Process
+					</a>
+
+					<a
+						ref={aboutRef}
+						href="#about"
+						className={`${active === "about" ? "text-black font-semibold" : "text-gray-700"}`}
+					>
+						About
+					</a>
+				</nav>
+			</header>
 
             {/* Background Gradient */}
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,0,0,0.05),transparent_70%)]"></div>
@@ -155,7 +246,24 @@ export default function App() {
 
             </section>
 
-
+			{/* Figma Prototype Embed */}
+			<section className="hidden md:block max-w-6xl mx-auto px-6 pb-32" id="prototype">
+				{/* Caption + Icon */}
+				<div className="flex items-center justify-center gap-2 mb-4">
+					<DemoIcon className="w-6 h-6 tap-down" />
+					<h3 className="text-gray-800 text-lg">Try the demo</h3>
+				</div>
+				
+				<div className="rounded-2xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+					<div className="w-full aspect-[16/9] rounded-xl overflow-hidden">
+						<iframe
+							src="https://embed.figma.com/proto/jjHRvzKvjAj3uPDSy12d70?embed-host=seekseatsit&node-id=143-903&p=f&t=OVQIEiQwixMkt1Pc-0&scaling=scale-down&content-scaling=fixed&page-id=143%3A899&starting-point-node-id=143%3A903"
+							allowFullScreen
+							className="w-full h-full"
+						/>
+					</div>
+				</div>
+			</section>
 
             {/* Overview Feature Cards */}
 			<section className="max-w-6xl mx-auto px-6 pb-32 grid md:grid-cols-3 gap-10" id="overview">
@@ -869,7 +977,7 @@ export default function App() {
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
 										<div
 											ref={personaRef}
-											onScroll={(e) => handleScroll(e, setPersonaIndex)}
+											onScroll={(e) => handleScroll(e, setPersonaIndex, 3)}
 											onPointerDown={(e) => handlePointerDown(e, personaRef, personaDrag)}
 											onPointerMove={(e) => handlePointerMove(e, personaRef, personaDrag)}
 											onPointerUp={(e) => handlePointerUp(e, personaRef, personaDrag)}
@@ -955,7 +1063,7 @@ export default function App() {
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
 										<div
 											ref={affinityRef}
-											onScroll={(e) => handleScroll(e, setAffinityIndex)}
+											onScroll={(e) => handleScroll(e, setAffinityIndex, 3)}
 											onPointerDown={(e) => handlePointerDown(e, affinityRef, affinityDrag)}
 											onPointerMove={(e) => handlePointerMove(e, affinityRef, affinityDrag)}
 											onPointerUp={(e) => handlePointerUp(e, affinityRef, affinityDrag)}
@@ -1152,7 +1260,7 @@ export default function App() {
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
 										<div
 											ref={storyboardRef}
-											onScroll={(e) => handleScroll(e, setstoryboardIndex)}
+											onScroll={(e) => handleScroll(e, setstoryboardIndex, 3)}
 											onPointerDown={(e) => handlePointerDown(e, storyboardRef, storyboardDrag)}
 											onPointerMove={(e) => handlePointerMove(e, storyboardRef, storyboardDrag)}
 											onPointerUp={(e) => handlePointerUp(e, storyboardRef, storyboardDrag)}
@@ -1273,7 +1381,7 @@ export default function App() {
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
 										<div
 											ref={lowfiRef}
-											onScroll={(e) => handleScroll(e, setlowfiIndex)}
+											onScroll={(e) => handleScroll(e, setlowfiIndex, 3)}
 											onPointerDown={(e) => handlePointerDown(e, lowfiRef, lowfiDrag)}
 											onPointerMove={(e) => handlePointerMove(e, lowfiRef, lowfiDrag)}
 											onPointerUp={(e) => handlePointerUp(e, lowfiRef, lowfiDrag)}
@@ -1345,7 +1453,7 @@ export default function App() {
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
 										<div
 											ref={hifiRef}
-											onScroll={(e) => handleScroll(e, sethifiIndex)}
+											onScroll={(e) => handleScroll(e, sethifiIndex, 5)}
 											onPointerDown={(e) => handlePointerDown(e, hifiRef, hifiDrag)}
 											onPointerMove={(e) => handlePointerMove(e, hifiRef, hifiDrag)}
 											onPointerUp={(e) => handlePointerUp(e, hifiRef, hifiDrag)}
@@ -1619,10 +1727,34 @@ export default function App() {
 
 					{/* Demo Links */}
 					<div className="space-y-4">
-						<h2 className="text-2xl font-semibold text-gray-900 text-center">Prototype & Build</h2>
-						<div className="bg-gray-100 p-6 rounded-xl space-y-3 text-center">
-							<a href="#" className="text-blue-600 hover:underline">Figma Prototype</a><br />
-							<a href="#" className="text-blue-600 hover:underline">GitHub Repository</a>
+						<h2 className="text-2xl font-semibold text-gray-900 text-center">
+							Prototype & Build
+						</h2>
+
+						<div className="bg-gray-100 p-6 rounded-xl space-y-4">
+
+							{/* Figma Prototype Link */}
+							<div className="flex items-center justify-center gap-2">
+								<FigmaIcon className="w-5 h-5" />
+								<a
+									href="https://www.figma.com/proto/jjHRvzKvjAj3uPDSy12d70/CS3189_G2_TsangCheukLam?node-id=143-899&p=f&t=OVQIEiQwixMkt1Pc-0&scaling=scale-down&content-scaling=fixed&page-id=143%3A899&starting-point-node-id=143%3A903"
+									className="text-blue-600 hover:underline"
+								>
+									Figma Prototype
+								</a>
+							</div>
+
+							{/* GitHub Link */}
+							<div className="flex items-center justify-center gap-2">
+								<GithubIcon className="w-5 h-5" />
+								<a
+									href="https://github.com/tfchan-lab/seekseatsit-portfolio"
+									className="text-blue-600 hover:underline"
+								>
+									GitHub Repository
+								</a>
+							</div>
+
 						</div>
 					</div>
 
