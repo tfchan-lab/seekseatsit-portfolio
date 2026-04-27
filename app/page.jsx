@@ -49,6 +49,15 @@ export default function App() {
 		startX: 0,
 		startScrollLeft: 0,
 	});
+	
+	const hifiRef = useRef(null);
+	const [hifiIndex, sethifiIndex] = useState(0);
+
+	const hifiDrag = useRef({
+		isDown: false,
+		startX: 0,
+		startScrollLeft: 0,
+	});
 
 	// SHARED HANDLERS FOR ALL CAROUSELS
 	const handleScroll = (e, setIndex) => {
@@ -1210,18 +1219,23 @@ export default function App() {
 										that would be later put into wireframe screens to form a <span className="text-black font-semibold">flow</span>.
 									</p><br />
 									
-									
+									<p className="text-sm leading-relaxed text-gray-700">
+										An iterative approach is used which starts from <span className="text-black font-semibold">simple</span> (as little elements per screen as possible)
+										to <span className="text-black font-semibold">complex</span> (more elements per screen, more relation between screens).
+									</p><br />
 								</div>
 								
 								{/* IMAGE */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										<Image
+											src="/image/sketch-1.png"
+											alt="Rough sketch mockup"
+											width={1600}
+											height={900}
+											className="w-full h-full object-cover pointer-events-none"
+										/>
 									</div>
-
-									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
-									</p>
-
 								</div>
 							</div>
 							
@@ -1326,13 +1340,82 @@ export default function App() {
 									</p><br />
 								</div>
 
-								{/* IMAGE */}
+								{/* CAROUSEL (scroll-snap + JS index tracking) */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										<div
+											ref={hifiRef}
+											onScroll={(e) => handleScroll(e, sethifiIndex)}
+											onPointerDown={(e) => handlePointerDown(e, hifiRef, hifiDrag)}
+											onPointerMove={(e) => handlePointerMove(e, hifiRef, hifiDrag)}
+											onPointerUp={(e) => handlePointerUp(e, hifiRef, hifiDrag)}
+											onPointerLeave={(e) => handlePointerUp(e, hifiRef, hifiDrag)}
+											className="
+												flex overflow-x-scroll snap-x snap-mandatory scroll-smooth
+												cursor-grab active:cursor-grabbing
+												scrollbar-none select-none no-scrollbar
+											"
+										>
+											{/* Slide 1 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/hifi-1.png"
+													alt="High Fidelity design 1"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 2 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/hifi-2.png"
+													alt="High Fidelity design 2"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 3 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/hifi-3.png"
+													alt="High Fidelity design 3"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+											
+											{/* Slide 4 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/hifi-4.png"
+													alt="High Fidelity design 4"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+											
+											{/* Slide 5 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/hifi-5.png"
+													alt="High Fidelity design 5"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+										</div>
 									</div>
 
 									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+										<span>&lt;- Swipe to see high fidelity designs</span>
+										<span className="text-gray-800">({hifiIndex + 1}/5) -&gt;</span>
 									</p>
 
 								</div>
@@ -1502,23 +1585,23 @@ export default function App() {
 								<span className="text-black font-semibold">Major Role</span>
 							</div>
 							<div className="flex justify-between">
-								<span className="text-gray-700">Member 1</span>
+								<span className="text-gray-700">Lam Lok Yiu</span>
 								<span className="text-gray-500">UX Research</span>
 							</div>
 							<div className="flex justify-between">
-								<span className="text-gray-700">Member 2</span>
+								<span className="text-gray-700">Tsang Cheuk Lam</span>
 								<span className="text-gray-500">UI Design</span>
 							</div>
 							<div className="flex justify-between">
-								<span className="text-gray-700">Member 3</span>
+								<span className="text-gray-700">Cheng Chuk Yin</span>
 								<span className="text-gray-500">Research Support</span>
 							</div>
 							<div className="flex justify-between">
-								<span className="text-gray-700">Member 4</span>
+								<span className="text-gray-700">Cheung Hiu Ching</span>
 								<span className="text-gray-500">Interaction Design</span>
 							</div>
 							<div className="flex justify-between">
-								<span className="text-gray-700">Member 5</span>
+								<span className="text-gray-700">Chan Ting Fung</span>
 								<span className="text-gray-500">Visuals</span>
 							</div>
 						</div>
