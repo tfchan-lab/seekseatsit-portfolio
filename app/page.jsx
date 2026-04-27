@@ -40,6 +40,15 @@ export default function App() {
 		startX: 0,
 		startScrollLeft: 0,
 	});
+	
+	const lowfiRef = useRef(null);
+	const [lowfiIndex, setlowfiIndex] = useState(0);
+
+	const lowfiDrag = useRef({
+		isDown: false,
+		startX: 0,
+		startScrollLeft: 0,
+	});
 
 	// SHARED HANDLERS FOR ALL CAROUSELS
 	const handleScroll = (e, setIndex) => {
@@ -358,10 +367,7 @@ export default function App() {
 						</h3>
 
 						<p className="text-gray-700 mt-3">
-							Blah blah blah blah blah blah
-							Blah blah blah blah blah blah
-							Blah blah blah blah blah blah
-							Blah blah blah blah blah blah
+							Usability tests are performed on 3 key tasks, with both objective and subjective metrics to evaluate the UX.
 						</p>
 					</div>
 				</div>
@@ -1200,7 +1206,8 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										From several rounds of Crazy 8s, we gathered a lot of UI elements, that would be later put into wireframe screens to form a flow.
+										From several rounds of Crazy 8s, we gathered a lot of <span className="text-black font-semibold">UI elements</span>,
+										that would be later put into wireframe screens to form a <span className="text-black font-semibold">flow</span>.
 									</p><br />
 									
 									
@@ -1229,15 +1236,78 @@ export default function App() {
 									<p className="text-sm leading-relaxed text-gray-700">
 										We transferred our paper drafts into Balsamiq wireframes, which cleaned up the rough sketches for more clarity and colors.
 									</p><br />
+									
+									<p className="text-sm leading-relaxed text-gray-700">
+										<span className="text-black font-semibold">Signature ideas</span>:
+									</p><br />
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											Information card
+										</li><br />
+										<li>
+											Preview bubble
+										</li><br />
+										<li>
+											Nearby seat dock
+										</li>
+									</ul>
 								</div>
 
-								{/* IMAGE */}
+								{/* CAROUSEL (scroll-snap + JS index tracking) */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										<div
+											ref={lowfiRef}
+											onScroll={(e) => handleScroll(e, setlowfiIndex)}
+											onPointerDown={(e) => handlePointerDown(e, lowfiRef, lowfiDrag)}
+											onPointerMove={(e) => handlePointerMove(e, lowfiRef, lowfiDrag)}
+											onPointerUp={(e) => handlePointerUp(e, lowfiRef, lowfiDrag)}
+											onPointerLeave={(e) => handlePointerUp(e, lowfiRef, lowfiDrag)}
+											className="
+												flex overflow-x-scroll snap-x snap-mandatory scroll-smooth
+												cursor-grab active:cursor-grabbing
+												scrollbar-none select-none no-scrollbar
+											"
+										>
+											{/* Slide 1 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/lowfi-1.png"
+													alt="Low Fidelity design 1"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 2 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/lowfi-2.png"
+													alt="Low Fidelity design 2"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+
+											{/* Slide 3 */}
+											<div className="snap-center shrink-0 w-full h-full">
+												<Image
+													src="/image/lowfi-3.png"
+													alt="Low Fidelity design 3"
+													width={1600}
+													height={900}
+													className="w-full h-full object-cover pointer-events-none"
+												/>
+											</div>
+										</div>
 									</div>
 
 									<p className="text-xs text-gray-600 mt-3 flex items-center gap-2">
+										<span>&lt;- Swipe to see low fidelity designs</span>
+										<span className="text-gray-800">({lowfiIndex + 1}/3) -&gt;</span>
 									</p>
 
 								</div>
@@ -1273,6 +1343,153 @@ export default function App() {
 				</div>
 			)}
 			
+			{/* POP-UP EXPANDED CARD 6 */}
+			{expanded6 && (
+				<div
+					onClick={() => setExpanded6(false)}
+					className="
+						fixed inset-0 z-50 flex items-center justify-center
+						bg-black/20 backdrop-blur-sm
+					"
+				>
+					<div
+						onClick={(e) => e.stopPropagation()}
+						className="
+							bg-gray-50 relative rounded-2xl border border-gray-200
+							shadow-[0_2px_20px_rgba(0,0,0,0.15)]
+							w-[90%] md:w-[80%] h-[80vh] md:h-[90vh]
+							overflow-y-auto
+						"
+					>
+
+						{/* CONTENT (above gradient) */}
+						<div className="relative z-10 p-8">
+
+							{/* Title */}
+							<h2 className="text-3xl font-semibold mb-6">
+								Evaluation
+							</h2>
+
+							{/* BRIEF */}
+							<p className="text-gray-700 mb-10">
+								Usability tests are performed on 3 key tasks, with both objective and subjective metrics to evaluate the UX.
+							</p>
+
+							{/* ===== SECTION 1 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-16 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Testers
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										We invited 3 real users who are <span className="text-black font-semibold">not involved</span> in the whole development process to perform <span className="text-black font-semibold">user testing</span>,
+										3 team members who are <span className="text-black font-semibold">less involved</span> in the final prototype design process to perform <span className="text-black font-semibold">expert testing</span>.
+									</p><br />
+									
+									
+								</div>
+
+								{/* CAROUSEL (scroll-snap + JS index tracking) */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+								</div>
+							</div>
+
+							{/* ===== SECTION 2 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Primary Task
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										...
+									</p><br />
+									
+									
+								</div>
+								
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 3 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Secondary Task
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										...
+									</p><br />
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 3 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Community Task
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										...
+									</p><br />
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 4 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Reflection and Planned Revision
+									</h4>
+
+									<p className="text-sm leading-relaxed text-gray-700">
+										...
+									</p><br />
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										...
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			)}
+			
 			<section id="about" className="w-full bg-white py-16 px-6 md:px-12 rounded-xl">
 				<div className="max-w-4xl mx-auto space-y-12">
 
@@ -1281,12 +1498,16 @@ export default function App() {
 						<h2 className="text-2xl font-semibold text-gray-900 text-center">Team & Roles</h2>
 						<div className="bg-gray-100 p-6 rounded-xl space-y-3">
 							<div className="flex justify-between">
+								<span className="text-black font-semibold">Name</span>
+								<span className="text-black font-semibold">Major Role</span>
+							</div>
+							<div className="flex justify-between">
 								<span className="text-gray-700">Member 1</span>
-								<span className="text-gray-500">UX Research · Interaction Design</span>
+								<span className="text-gray-500">UX Research</span>
 							</div>
 							<div className="flex justify-between">
 								<span className="text-gray-700">Member 2</span>
-								<span className="text-gray-500">UI Design · Visuals</span>
+								<span className="text-gray-500">UI Design</span>
 							</div>
 							<div className="flex justify-between">
 								<span className="text-gray-700">Member 3</span>
@@ -1294,11 +1515,11 @@ export default function App() {
 							</div>
 							<div className="flex justify-between">
 								<span className="text-gray-700">Member 4</span>
-								<span className="text-gray-500">UX Research · Interaction Design</span>
+								<span className="text-gray-500">Interaction Design</span>
 							</div>
 							<div className="flex justify-between">
 								<span className="text-gray-700">Member 5</span>
-								<span className="text-gray-500">UI Design · Visuals</span>
+								<span className="text-gray-500">Visuals</span>
 							</div>
 						</div>
 					</div>
@@ -1306,7 +1527,7 @@ export default function App() {
 					{/* Tools & Tech Stack */}
 					<div className="space-y-4">
 						<h2 className="text-2xl font-semibold text-gray-900 text-center">Tools & Tech Stack</h2>
-						<div className="bg-gray-100 p-6 rounded-xl space-y-2">
+						<div className="bg-gray-100 p-6 rounded-xl space-y-2 text-center">
 							<p className="text-gray-700"><strong>Prototype:</strong> Balsamiq · Figma</p>
 							<p className="text-gray-700"><strong>Portfolio:</strong> Next.js · React · Tailwind CSS</p>
 							<p className="text-gray-700"><strong>Design Assets:</strong> Irasutoya いらすとや</p>
@@ -1316,7 +1537,7 @@ export default function App() {
 					{/* Demo Links */}
 					<div className="space-y-4">
 						<h2 className="text-2xl font-semibold text-gray-900 text-center">Prototype & Build</h2>
-						<div className="bg-gray-100 p-6 rounded-xl space-y-3">
+						<div className="bg-gray-100 p-6 rounded-xl space-y-3 text-center">
 							<a href="#" className="text-blue-600 hover:underline">Figma Prototype</a><br />
 							<a href="#" className="text-blue-600 hover:underline">GitHub Repository</a>
 						</div>
@@ -1324,10 +1545,77 @@ export default function App() {
 
 					{/* Acknowledgements */}
 					<div className="space-y-4">
-						<h2 className="text-2xl font-semibold text-gray-900 text-center">Acknowledgements</h2>
-						<div className="bg-gray-100 p-6 rounded-xl space-y-2">
-							<p className="text-gray-700">We thank all interview participants for their time and insights.</p>
-							<p className="text-gray-700">Special thanks to the teaching team for guidance throughout the project.</p>
+						<h2 className="text-2xl font-semibold text-gray-900 text-center">
+							Acknowledgements
+						</h2>
+
+						{/* Card */}
+						<div className="bg-gray-100 p-6 rounded-xl flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+							{/* MOBILE: Heart above text */}
+							<div className="flex justify-center md:hidden">
+								<Image
+									src="/image/heart.png"
+									alt="Heart icon"
+									width={48}
+									height={48}
+									className="object-contain"
+								/>
+							</div>
+
+							{/* Text */}
+							<div className="space-y-2 text-center md:text-left">
+								<p className="text-gray-700">
+									We thank all interview participants for their time and insights.
+								</p>
+								<p className="text-gray-700">
+									Special thanks to the teaching team for guidance throughout the project.
+								</p>
+							</div>
+
+							{/* MOBILE: thank-1 + thank-2 below text */}
+							<div className="flex justify-center gap-3 md:hidden">
+								<Image
+									src="/image/thank-2.png"
+									alt="Thank you icon"
+									width={48}
+									height={48}
+									className="object-contain"
+								/>
+								<Image
+									src="/image/thank-1.png"
+									alt="Thank you icon"
+									width={48}
+									height={48}
+									className="object-contain"
+								/>
+							</div>
+
+							{/* DESKTOP: all three icons on the right */}
+							<div className="hidden md:flex items-center gap-3">
+								<Image
+									src="/image/heart.png"
+									alt="Heart icon"
+									width={48}
+									height={48}
+									className="object-contain"
+								/>
+								<Image
+									src="/image/thank-2.png"
+									alt="Thank you icon"
+									width={48}
+									height={48}
+									className="object-contain"
+								/>
+								<Image
+									src="/image/thank-1.png"
+									alt="Thank you icon"
+									width={48}
+									height={48}
+									className="object-contain"
+								/>
+							</div>
+
 						</div>
 					</div>
 
