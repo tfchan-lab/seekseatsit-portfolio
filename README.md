@@ -45,9 +45,9 @@ After restart:
 
 3. Tell NVM to use this version: `nvm use 25.9.0`
 
-4. Confirm Node and npm versions: `node -v` `npm -v`
+4. Confirm Node and npm versions: `node -v` & `npm -v`
 
-You should see: `node: 25.9.0` `npm: 11.12.1`
+You should see: `node: 25.9.0` & `npm: 11.12.1` respectively
 
 If yes — perfect.
 
@@ -59,12 +59,13 @@ If you haven’t cloned the repo yet, download and install Git:
 https://git-scm.com/install/windows
 
 Open Git Bash in an empty folder and clone:
-`git clone https://github.com/tfchan-lab/seeksitseat-portfolio.git`
-`cd seeksitseat-portfolio`
+1. `git clone https://github.com/tfchan-lab/seeksitseat-portfolio.git`
+2. `cd seeksitseat-portfolio`
 
 ---
 
 # 4. Install project dependencies
+Open Windows Terminal (cmd or PowerShell) at `your-folder/seeksitseat-portfolio`
 
 Run: `npm install`
 
@@ -74,6 +75,6 @@ This downloads everything the project needs.
 
 # 5. Start the development server
 
-Run: `npm run dev`
+After this initial install, you can now start the development server by running: `npm run dev` at `your-folder/seeksitseat-portfolio` at anytime.
 
-Then open your browser and go to: http://localhost:3000
+Then open your browser and go to: http://localhost:3000 to see real-time preview, no need to restart server if you make some changes.
