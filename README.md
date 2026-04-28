@@ -59,8 +59,7 @@ If you haven’t cloned the repo yet, download and install Git:
 https://git-scm.com/install/windows
 
 Open Git Bash in an empty folder and clone:
-1. `git clone https://github.com/tfchan-lab/seeksitseat-portfolio.git`
-2. `cd seeksitseat-portfolio`
+`git clone https://github.com/tfchan-lab/seeksitseat-portfolio.git`
 
 ---
 
