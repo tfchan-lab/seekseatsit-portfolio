@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { FigmaIcon, GithubIcon, DemoIcon } from "./SVGRepo"
+import { FigmaIcon, GithubIcon, DemoIcon, AppIcon } from "./SVGRepo"
 
 export default function App() {
 
@@ -220,9 +220,10 @@ export default function App() {
             {/* Hero */}
             <section className="max-w-6xl mx-auto px-6 pt-40 pb-32 text-center" id="top">
 
-                <p className="text-sm text-gray-500 mb-4">
-                    <span className="text-orange-500 font-bold">SeekSeatSit</span> by <span className="text-black font-semibold">Group 13</span>
-                </p>
+                <p className="text-sm text-gray-500 mb-4 flex items-center justify-center gap-2">
+					<AppIcon className="w-32 h-auto" />
+					<span>by <span className="text-black font-semibold">Group 13</span></span>
+				</p>
 
                 <h2
                     className="
@@ -257,7 +258,7 @@ export default function App() {
 				<div className="rounded-2xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
 					<div className="w-full aspect-[16/9] rounded-xl overflow-hidden">
 						<iframe
-							src="https://embed.figma.com/proto/jjHRvzKvjAj3uPDSy12d70?embed-host=seekseatsit&node-id=143-903&p=f&t=OVQIEiQwixMkt1Pc-0&scaling=scale-down&content-scaling=fixed&page-id=143%3A899&starting-point-node-id=143%3A903"
+							src="https://embed.figma.com/proto/jjHRvzKvjAj3uPDSy12d70/CS3189_G2_TsangCheukLam?node-id=143-903&p=f&scaling=scale-down&content-scaling=fixed&page-id=143%3A899&starting-point-node-id=143%3A903&embed-host=share"
 							allowFullScreen
 							className="w-full h-full"
 						/>
@@ -1356,7 +1357,7 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We transferred our paper drafts into Balsamiq wireframes, which cleaned up the rough sketches for more clarity and colors.
+										We transferred our paper drafts into Balsamiq wireframes, which <span className="text-black font-semibold">cleaned up</span> the rough sketches for more clarity and colors.
 									</p><br />
 									
 									<p className="text-sm leading-relaxed text-gray-700">
@@ -1444,7 +1445,11 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We move on to make interactive prototypes by refining and merging the layouts of our previous low fidelity ideas.
+										We move on to make interactive prototypes by <span className="text-black font-semibold">refining</span> the layouts of our previous low fidelity ideas.
+									</p><br />
+									
+									<p className="text-sm leading-relaxed text-gray-700">
+										We choose one design as the final prototype <span className="text-black font-semibold">candidate</span> and <span className="text-black font-semibold">merge</span> good ideas from other designs into it.
 									</p><br />
 								</div>
 
