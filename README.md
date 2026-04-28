@@ -64,7 +64,7 @@ Open Git Bash in an empty folder and clone:
 ---
 
 # 4. Install project dependencies
-Open Windows Terminal (cmd or PowerShell) at `your-folder/seeksitseat-portfolio`
+Open Windows Terminal (cmd only, **does not work** with Powershell) at `your-folder/seeksitseat-portfolio`
 
 Run: `npm install`
 
