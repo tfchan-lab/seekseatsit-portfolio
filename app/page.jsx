@@ -1580,8 +1580,8 @@ export default function App() {
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										We invited 3 real users who are <span className="text-black font-semibold">not involved</span> in the whole development process to perform <span className="text-black font-semibold">user testing</span>,
-										3 team members who are <span className="text-black font-semibold">less involved</span> in the final prototype design process to perform <span className="text-black font-semibold">expert testing</span>.
+										We invited 3 real users, who are <span className="text-black font-semibold">not involved</span> in the whole development process, to perform <span className="text-black font-semibold">user testing</span>,
+										1 team member and another expert, who are <span className="text-black font-semibold">less involved</span> in the final prototype design process but <span className="text-black font-semibold">familiar with</span> UI/UX, to perform <span className="text-black font-semibold">expert testing</span>.
 									</p><br />
 									
 									
@@ -1590,7 +1590,13 @@ export default function App() {
 								{/* CAROUSEL (scroll-snap + JS index tracking) */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										<Image
+											src="/image/usability-lab.png"
+											alt="Usability Lab"
+											width={1600}
+											height={900}
+											className="w-full h-full object-cover pointer-events-none"
+										/>
 									</div>
 								</div>
 							</div>
@@ -1600,20 +1606,26 @@ export default function App() {
 								{/* TEXT */}
 								<div className="md:w-1/2">
 									<h4 className="font-semibold text-gray-900 text-lg mb-2">
-										Primary Task
+										Primary User Task
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										...
+										Locate and view nearby seats through real-time positioning.
 									</p><br />
 									
+									<p className="text-sm leading-relaxed text-gray-700">
+										Subjective usability ratings:
+									</p><br />
 									
+									<p className="text-sm leading-relaxed text-gray-700">
+										Objective usability metrics:
+									</p><br />
 								</div>
 								
 								{/* IMAGE */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										Graph from Excel
 									</div>
 								</div>
 							</div>
@@ -1623,39 +1635,26 @@ export default function App() {
 								{/* TEXT */}
 								<div className="md:w-1/2">
 									<h4 className="font-semibold text-gray-900 text-lg mb-2">
-										Secondary Task
+										Secondary User Task
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										...
+										Read and compare information of seat (e.g. real-time seat availability, environment).
+									</p><br />
+									
+									<p className="text-sm leading-relaxed text-gray-700">
+										Subjective usability ratings:
+									</p><br />
+									
+									<p className="text-sm leading-relaxed text-gray-700">
+										Objective usability metrics:
 									</p><br />
 								</div>
 
 								{/* IMAGE */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
-									</div>
-								</div>
-							</div>
-							
-							{/* ===== SECTION 3 ===== */}
-							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
-								{/* TEXT */}
-								<div className="md:w-1/2">
-									<h4 className="font-semibold text-gray-900 text-lg mb-2">
-										Community Task
-									</h4>
-
-									<p className="text-sm leading-relaxed text-gray-700">
-										...
-									</p><br />
-								</div>
-
-								{/* IMAGE */}
-								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
-									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										Graph from Excel
 									</div>
 								</div>
 							</div>
@@ -1665,18 +1664,125 @@ export default function App() {
 								{/* TEXT */}
 								<div className="md:w-1/2">
 									<h4 className="font-semibold text-gray-900 text-lg mb-2">
-										Reflection and Planned Revision
+										Community User Task
 									</h4>
 
 									<p className="text-sm leading-relaxed text-gray-700">
-										...
+										View or share feedback on seats by ratings/reviews, which contribute to the ranking of seats in categories like popularity and cleanliness.
+									</p><br />
+									
+									<p className="text-sm leading-relaxed text-gray-700">
+										Subjective usability ratings:
+									</p><br />
+									
+									<p className="text-sm leading-relaxed text-gray-700">
+										Objective usability metrics:
 									</p><br />
 								</div>
 
 								{/* IMAGE */}
 								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
 									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
-										...
+										Graph from Excel
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 5 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Expert Review
+									</h4>
+
+									<h4 className="text-gray-700 text-medium mb-2">
+										Successful Design Aspects
+									</h4>
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											Effective Focus Guidance: &quot;Goal&quot; animation during navigation help guide the user’s <span className="text-black font-semibold">attention</span> to destinations.
+										</li><br />
+										<li>
+											Clear Information Hierarchy: The homepage is well-organized, allowing core functions to be visible and <span className="text-black font-semibold">understandable</span> at a glance.
+										</li><br />
+										<li>
+											Functional Foundation: Evaluators found the core workflow of finding a seat to be <span className="text-black font-semibold">fundamentally quick</span>.
+										</li>
+									</ul><br />
+
+									<h4 className="text-gray-700 text-medium mb-2">
+										Unsuccessful Design Aspects
+									</h4>
+									
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											Interface & Navigation issues: Poor search visibility and workflow <span className="text-black font-semibold">disruption</span>.
+										</li><br />
+										<li>
+											System Feedback & Status issues: <span className="text-black font-semibold">Ambiguous</span> status indicators.
+										</li><br />
+										<li>
+											Accessibility & Personalization issues: <span className="text-black font-semibold">Inflexible</span> map view and lack accessibility/personization options.
+										</li><br />
+										<li>
+											Content & Feature Scope issues: Unnecessary <span className="text-black font-semibold">distractions</span> (e.g. family and friends) and lack quick summary for the review section.
+										</li>
+									</ul>
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										<Image
+											src="/image/usability-lab.png"
+											alt="Usability Lab photo"
+											width={1600}
+											height={900}
+											className="w-full h-full object-cover pointer-events-none"
+										/>
+									</div>
+								</div>
+							</div>
+							
+							{/* ===== SECTION 6 ===== */}
+							<div className="md:flex md:gap-10 md:items-center mb-10 bg-gray-100 p-6 rounded-xl">
+								{/* TEXT */}
+								<div className="md:w-1/2">
+									<h4 className="font-semibold text-gray-900 text-lg mb-2">
+										Reflection and Planned Revision
+									</h4><br />
+
+									<ul className="text-sm list-disc pl-5 space-y-1 text-gray-700">
+										<li>
+											Improve the <span className="text-black font-semibold">flow</span> between screens and features by displaying elements directly without clicking .
+										</li><br />
+										<li>
+											Ensure <span className="text-black font-semibold">no overlapping</span> of visuals.
+										</li><br />
+										<li>
+											Optimize the 2D map&apos;s style to increase <span className="text-black font-semibold">data-ink ratio</span> for general users, add <span className="text-black font-semibold">additional style</span> options (e.g. satellite, paper map)
+										</li><br />
+										<li>
+											Refine search function and add slope <span className="text-black font-semibold">elevation</span> display in real-time navigation.
+										</li><br />
+										<li>
+											Consider <span className="text-black font-semibold">alternative</span> layouts (e.g. split screen) to let <span className="text-black font-semibold">intermediate</span> users perform multiple tasks simultaneously.
+										</li>
+									</ul>
+								</div>
+
+								{/* IMAGE */}
+								<div className="md:w-1/2 mt-6 md:mt-0 flex flex-col items-center">
+									<div className="w-full aspect-video rounded-xl overflow-hidden bg-gray-200 relative">
+										<Image
+											src="/image/revision-slide.png"
+											alt="Planned revision presentation slide"
+											width={1600}
+											height={900}
+											className="w-full h-full object-cover pointer-events-none"
+										/>
 									</div>
 								</div>
 							</div>
@@ -1742,7 +1848,7 @@ export default function App() {
 							<div className="flex items-center justify-center gap-2">
 								<FigmaIcon className="w-5 h-5" />
 								<a
-									href="https://www.figma.com/proto/jjHRvzKvjAj3uPDSy12d70/CS3189_G2_TsangCheukLam?node-id=143-899&p=f&t=OVQIEiQwixMkt1Pc-0&scaling=scale-down&content-scaling=fixed&page-id=143%3A899&starting-point-node-id=143%3A903"
+									href="https://www.figma.com/design/jjHRvzKvjAj3uPDSy12d70/CS3189_G2_TsangCheukLam?node-id=143-899&p=f&t=3BTzfMy680pFLWwT-0"
 									className="text-blue-600 hover:underline"
 								>
 									Figma Prototype
